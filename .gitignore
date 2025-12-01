@@ -1,0 +1,17 @@
+/log
+/temp
+/roles
+/.idea
+/data
+
+/config/*
+!/config/localextensions.xml
+
+/bin/**
+!/bin/custom/
+!/bin/custom/*/
+!/bin/custom/*/resources/
+!/bin/custom/*/resources/impex/
+!/bin/custom/*/resources/impex/**
+!/bin/custom/*/resources/*-items.xml
+!/bin/custom/*/extensioninfo.xml
