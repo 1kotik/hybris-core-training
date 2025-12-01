@@ -1,0 +1,8 @@
+INSERT_UPDATE MovieGenre;code[unique=true]
+;Action
+;Thriller
+;Horror
+;Comedy
+;Drama
+;Romance
+;Crime

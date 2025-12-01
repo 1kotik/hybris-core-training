@@ -1,0 +1,4 @@
+INSERT_UPDATE SeatType;code[unique=true]
+;Standard
+;VIP
+;Sofa

@@ -1,0 +1,32 @@
+$productCatalog=moviescatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$baseProduct=baseProduct(code,$catalogVersion)
+$variantType=variantType(code[default=MovieShow])
+
+INSERT_UPDATE Catalog;id[unique=true];name
+;moviescatalog;Movies Catalog
+
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active
+;moviescatalog;Online;true
+
+INSERT_UPDATE MovieProductionDetails;code[unique=true];productionCompanies;executiveProducers;budgetUSD
+;1;Paramount Pictures, Alfran Productions;Albert S. Ruddy, Robert Evans;6000000
+;2;Miramax Films, A Band Apart, Jersey Films;Danny DeVito, Michael Shamberg, Stacey Sher;8000000
+
+INSERT_UPDATE Product;code[unique=true];name[lang=en];name[lang=ru];releaseDate;originCountry[lang=en];originCountry[lang=ru];averageRating;actors;director[lang=en];director[lang=ru];ageRating(code);movieGenres(code);productionDetails(code);$variantType;$catalogVersion
+;the-godfather;The Godfather;Крестный отец;1972;USA;США;9.2;Marlon Brando, Al Pacino, James Caan;Francis Ford Coppola;Фрэнсис Форд Коппола;R;Drama, Crime;1;;
+;pulp-fiction;Pulp Fiction;Криминальное чтиво;1994;USA;США;8.8;John Travolta, Uma Thurman, Samuel L. Jackson;Quentin Tarantino;Квентин Тарантино;R;Drama, Comedy;2;;
+
+INSERT_UPDATE MovieShow;$baseProduct;code[unique=true];name;screeningDate[dateformat=dd.MM.yyyy HH:mm];cinemaHall(code);pricePerSeatType(key(code), value)[map-delimiter=|];$catalogVersion
+;the-godfather;the-godfather-1;The Godfather at New York Cinema;28.11.2026 13:00;1;Standard->20|VIP->30;
+;the-godfather;the-godfather-2;The Godfather at New York Cinema;28.11.2026 15:00;2;Standard->20|VIP->30|Sofa->80;
+;the-godfather;the-godfather-3;The Godfather at Washington Cinema;29.11.2026 17:00;3;Standard->30|VIP->40;
+;the-godfather;the-godfather-4;The Godfather at Washington Cinema;29.11.2026 19:00;4;Standard->30|VIP->40|Sofa->100;
+;pulp-fiction;pulp-fiction-1;Pulp Fiction at New York Cinema;29.11.2026 13:00;1;Standard->20|VIP->30;
+;pulp-fiction;pulp-fiction-2;Pulp Fiction at New York Cinema;29.11.2026 19:00;2;Standard->30|VIP->40|Sofa->100;
+;pulp-fiction;pulp-fiction-3;Pulp Fiction at Washington Cinema;28.11.2026 17:00;3;Standard->30|VIP->40;
+;pulp-fiction;pulp-fiction-4;Pulp Fiction at Washington Cinema;28.11.2026 22:00;4;Standard->40|VIP->50|Sofa->120;
+
+
+
+
