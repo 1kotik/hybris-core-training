@@ -1,3 +1,4 @@
+/${HYBRIS_DATA_DIR}
 /log
 /temp
 /roles
@@ -7,11 +8,24 @@
 /config/*
 !/config/localextensions.xml
 
-/bin/**
-!/bin/custom/
-!/bin/custom/*/
-!/bin/custom/*/resources/
-!/bin/custom/*/resources/impex/
-!/bin/custom/*/resources/impex/**
-!/bin/custom/*/resources/*-items.xml
-!/bin/custom/*/extensioninfo.xml
+/bin/modules/
+/bin/platform/
+
+/bin/custom/*/lib/
+/bin/custom/*/classes/
+/bin/custom/*/gensrc/
+/bin/custom/*/.settings/
+
+
+/bin/custom/*/web/webroot/WEB-INF/lib/
+rebel.xml
+*.build.number
+*.xsd
+*.xmi
+*.classpath
+*.project
+*.springBeans
+*launch
+dummy.txt
+sap-hybris-platform.png
+platformhome.properties
