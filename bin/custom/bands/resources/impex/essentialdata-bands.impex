@@ -1,0 +1,26 @@
+INSERT_UPDATE MusicType;code[unique=true]
+;rock
+;jazz
+;classical
+;pop
+;gospel
+;choral
+;sixties
+;seventies
+;eighties
+;nineties
+;maleVocals
+;femaleVocals
+
+INSERT_UPDATE MusicInstrument;code[unique=true]
+;guitar
+;drums
+;vocal
+;synthesizer
+;piano
+;violin
+;trumpet
+;bassGuitar
+;saxophone
+;flute
+;clarinet

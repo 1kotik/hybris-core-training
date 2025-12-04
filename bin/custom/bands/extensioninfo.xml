@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+    <extension abstractclassprefix="Generated" classprefix="Bands" jaloLogicFree="true" managername="BandsManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="bands" usemaven="false">
+        <coremodule generated="true" manager="bands.jalo.BandsManager" packageroot="bands"/>
+        <webmodule jspcompile="false" webroot="/bands"/>
+    </extension>
+</extensioninfo>
