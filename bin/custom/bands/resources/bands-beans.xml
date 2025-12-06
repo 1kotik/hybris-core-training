@@ -1,62 +1,56 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
- Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
--->
-<!--
-	ATTENTION: This is just an example file. You have to edit it according to your needs.
--->
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-	<!--
-		Example Data POJO
-	
-	<bean class="bands.data.AbstractPojo" abstract="true">
+	<bean class = "bands.data.TourSummaryData">
+		<description >Data object for a tour summary which has no equivalent on the type system</description>
+		<property name = "id" type = "String" />
+		<property name = "tourName" type = "String" />
+		<property name = "numberOfConcerts" type = "String" />
+	</bean>
+	<bean class="bands.data.MusicianData">
+		<description>Data object representing a Musician</description>
 		<property name="id" type="String"/>
-		<property name="flag" type="boolean"/>
-	</bean>
-
-	<bean class="bands.data.MyPojo" extends="bands.data.AbstractPojo">
-		<property name="message" type="String"/>
-	</bean>
-
-	<bean class="bands.data.AnnotatedPojo">
-
-		<import type="javax.xml.bind.annotation.XmlRootElement"/>
-		<import type="javax.xml.bind.annotation.XmlElements"/>
-		<import type="javax.xml.bind.annotation.XmlElement"/>
-
-		<annotations>@XmlRootElement</annotations>
-		
-		<property name="someText" type="String">
-
-			<annotations scope="getter">
-			@XmlElements(value = {
-					@XmlElement(name="map",
-						type=ValueAsMap.class),
-					@XmlElement(name="string",
-						type=ValueAsString.class)
-			})
-			</annotations>
-
+		<property name="name" type="String"/>
+		<property name="instrumentsExperience" type="java.util.Map&lt;String, Long&gt;">
+			<description>Represents years of experience in playing given music instruments</description>
 		</property>
-
+		<property name="skillLevel" type="String">
+			<description>based on experience of playing music instruments</description>
+		</property>
 	</bean>
-
-    <bean  class="de.hybris.platform.catalog.data.Equals1">
-    	<property name="a1" type="boolean" equals="true"/>
-    	<property name="a2" type="int" equals="true"/>
-    	<property name="a3" type="String" equals="true"/>
-    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
-    </bean>
-
-    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
-    	<property name="a5" type="java.lang.Integer" equals="true"/>
-    	<property name="a6" type="java.util.List" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
-    </bean>
-
-	-->
+	<bean class="bands.data.BandManagerData">
+		<description>Data object representing a Band Manager</description>
+		<property name="id" type="String"/>
+		<property name="name" type="String"/>
+		<property name="email" type="String"/>
+		<property name="phone" type="String"/>
+		<property name="yearsOfExperience" type="Long"/>
+	</bean>
+	<bean class = "bands.data.BandData" >
+		<description>Data object representing a Band</description>
+		<property name = "id" type = "String" />
+		<property name = "name" type = "String" />
+		<property name = "description" type = "String" />
+		<property name = "albumsSold" type = "Long" />
+		<property name = "genres" type="java.util.List&lt;String&gt;"/>
+		<property name = "tours" type="java.util.List&lt;bands.data.TourSummaryData&gt;"/>
+		<property name="members" type="java.util.Set&lt;bands.data.MusicianData&gt;"/>
+		<property name="manager" type="bands.data.BandManagerData"/>
+	</bean>
+	<bean class = "bands.data.ConcertSummaryData">
+		<description >Data object for a concert summary</description>
+		<property name = "id" type = "String" />
+		<property name = "date" type = "java.util.Date" />
+		<property name = "venue" type = "String" />
+		<property name = "type" type = "String" />
+	</bean>
+	<bean class = "bands.data.TourData" >
+		<description>Data object representing a tour</description>
+		<property name = "id" type = "String" />
+		<property name = "tourName" type = "String" />
+		<property name = "description" type = "String" />
+		<property name = "concerts" type="java.util.List&lt;bands.data.ConcertSummaryData&gt;"/>
+	</bean>
 
 </beans>

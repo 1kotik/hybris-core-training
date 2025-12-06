@@ -1,106 +1,116 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xsi:noNamespaceSchemaLocation="items.xsd">
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
 
-	<collectiontypes>
-		<collectiontype code="Musicians" elementtype="Musician" type="set"/>
-	</collectiontypes>
+    <collectiontypes>
+        <collectiontype code="Musicians" elementtype="Musician" type="set"/>
+    </collectiontypes>
 
-	<enumtypes>
-		<enumtype code="MusicType" dynamic="true"/>
-		<enumtype code="MusicInstrument" dynamic="true"/>
-	</enumtypes>
+    <enumtypes>
+        <enumtype code="MusicType" dynamic="true"/>
+        <enumtype code="MusicInstrument" dynamic="true"/>
+        <enumtype code="SkillLevel">
+            <value code="beginner"/>
+            <value code="amateur"/>
+            <value code="professional"/>
+        </enumtype>
+    </enumtypes>
 
-	<maptypes>
-		<maptype code="MusicInstrument2Long" argumenttype="MusicInstrument" returntype="java.lang.Long"/>
-	</maptypes>
+    <maptypes>
+        <maptype code="MusicInstrument2Long" argumenttype="MusicInstrument" returntype="java.lang.Long"/>
+    </maptypes>
 
-	<relations>
-		<relation code="Band2MusicType" localized="false">
-			<deployment table="Band2MusicType" typecode="10103" />
-			<sourceElement qualifier="bands" type="Band" collectiontype="set" cardinality="many" ordered="false">
-				<modifiers read="true" write="true" search="true" optional="true" />
-			</sourceElement>
-			<targetElement qualifier="types" type="MusicType" cardinality="many">
-				<modifiers read="true" write="true" search="true" optional="true" />
-			</targetElement>
-		</relation>
-	</relations>
+    <relations>
+        <relation code="Band2MusicType" localized="false">
+            <deployment table="Band2MusicType" typecode="10103"/>
+            <sourceElement qualifier="bands" type="Band" collectiontype="set" cardinality="many" ordered="false">
+                <modifiers read="true" write="true" search="true" optional="true"/>
+            </sourceElement>
+            <targetElement qualifier="types" type="MusicType" cardinality="many">
+                <modifiers read="true" write="true" search="true" optional="true"/>
+            </targetElement>
+        </relation>
+    </relations>
 
-	<itemtypes>
-		<itemtype code="Band">
-			<deployment table="Bands" typecode="10102" />
-			<attributes>
-				<attribute qualifier="code" type="java.lang.String">
-					<description>short unique code of band</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="name" type="java.lang.String">
-					<description>name of band</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="history" type="java.lang.String">
-					<description>history of band</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="albumSales" type="java.lang.Long">
-					<description>official global album sales</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="members" type="Musicians">
-					<description>band members</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="manager" type="BandManager">
-					<description>band manager</description>
-					<persistence type="property"/>
-				</attribute>
-			</attributes>
-		</itemtype>
+    <itemtypes>
+        <itemtype code="Band">
+            <deployment table="Bands" typecode="10102"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>short unique code of band</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <description>name of band</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="history" type="java.lang.String">
+                    <description>history of band</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="albumSales" type="java.lang.Long">
+                    <description>official global album sales</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="members" type="Musicians">
+                    <description>band members</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="manager" type="BandManager">
+                    <description>band manager</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-		<itemtype code="Musician">
-			<deployment table="Musicians" typecode="10105"/>
-			<attributes>
-				<attribute qualifier="code" type="java.lang.String">
-					<description>short unique code of band member</description>
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="name" type="java.lang.String">
-					<description>full name of person</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="instrumentsExperience" type="MusicInstrument2Long">
-					<description>years of experience in different music instruments</description>
-					<persistence type="property"/>
-				</attribute>
-			</attributes>
-		</itemtype>
+        <itemtype code="Musician">
+            <deployment table="Musicians" typecode="10105"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>short unique code of band member</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <description>full name of person</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="instrumentsExperience" type="MusicInstrument2Long">
+                    <description>years of experience in different music instruments</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="skillLevel" type="SkillLevel">
+                    <description>based on experience of playing music instruments</description>
+                    <persistence type="dynamic" attributeHandler="musicInstrumentsSkillLevelAttributeHandler"/>
+                    <modifiers read="true" write="false"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-		<itemtype code="BandManager">
-			<deployment table="BandManagers" typecode="10106"/>
-			<attributes>
-				<attribute qualifier="code" type="java.lang.String">
-					<description>unique manager code</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="name" type="java.lang.String">
-					<description>full name of person</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="email" type="java.lang.String">
-					<description>contact email</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="phone" type="java.lang.String">
-					<description>contact phone number</description>
-					<persistence type="property"/>
-				</attribute>
-				<attribute qualifier="yearsOfExperience" type="java.lang.Integer">
-					<description>years of experience in music industry</description>
-					<persistence type="property"/>
-				</attribute>
-			</attributes>
-		</itemtype>
-	</itemtypes>
+        <itemtype code="BandManager">
+            <deployment table="BandManagers" typecode="10106"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>unique manager code</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <description>full name of person</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="email" type="java.lang.String">
+                    <description>contact email</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="phone" type="java.lang.String">
+                    <description>contact phone number</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="yearsOfExperience" type="java.lang.Integer">
+                    <description>years of experience in music industry</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
 </items>
