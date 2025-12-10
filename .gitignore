@@ -26,6 +26,7 @@ rebel.xml
 *.project
 *.springBeans
 *launch
+*.class
 dummy.txt
 sap-hybris-platform.png
 platformhome.properties

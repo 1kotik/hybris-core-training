@@ -25,7 +25,7 @@
 		<property name="name" type="String"/>
 		<property name="email" type="String"/>
 		<property name="phone" type="String"/>
-		<property name="yearsOfExperience" type="Long"/>
+		<property name="yearsOfExperience" type="Integer"/>
 	</bean>
 	<bean class = "bands.data.BandData" >
 		<description>Data object representing a Band</description>
@@ -35,7 +35,7 @@
 		<property name = "albumsSold" type = "Long" />
 		<property name = "genres" type="java.util.List&lt;String&gt;"/>
 		<property name = "tours" type="java.util.List&lt;bands.data.TourSummaryData&gt;"/>
-		<property name="members" type="java.util.Set&lt;bands.data.MusicianData&gt;"/>
+		<property name="members" type="java.util.List&lt;bands.data.MusicianData&gt;"/>
 		<property name="manager" type="bands.data.BandManagerData"/>
 	</bean>
 	<bean class = "bands.data.ConcertSummaryData">

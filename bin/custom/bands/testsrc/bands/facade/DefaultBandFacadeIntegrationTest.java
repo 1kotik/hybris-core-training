@@ -1,6 +1,9 @@
 package bands.facade;
 
 import bands.data.BandData;
+import bands.data.BandManagerData;
+import bands.data.MusicianData;
+import bands.data.TourSummaryData;
 import bands.facade.impl.DefaultBandFacade;
 import bands.model.BandManagerModel;
 import bands.model.BandModel;
@@ -13,7 +16,9 @@ import de.hybris.platform.catalog.model.CatalogModel;
 import de.hybris.platform.catalog.model.CatalogVersionModel;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
+import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+import de.hybris.platform.servicelayer.i18n.I18NService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,12 +40,21 @@ public class DefaultBandFacadeIntegrationTest extends ServicelayerTransactionalT
     private ModelService modelService;
     @Resource
     private CatalogVersionService catalogVersionService;
+    @Resource
+    private Converter<BandModel, BandData> basicBandConverter;
+    @Resource
+    private Converter<BandManagerModel, BandManagerData> bandManagerConverter;
+    @Resource
+    private Converter<MusicianModel, MusicianData> musicianConverter;
+    @Resource
+    private Converter<ProductModel, TourSummaryData> tourSummaryConverter;
     private BandFacade bandFacade;
     private CatalogVersionModel catalogVersion;
 
     @Before
     public void setup() {
-        bandFacade = new DefaultBandFacade(bandService);
+        bandFacade = new DefaultBandFacade(bandService, basicBandConverter, bandManagerConverter,
+                musicianConverter, tourSummaryConverter);
         CatalogModel catalog = modelService.create(CatalogModel.class);
         catalog.setId("catalog");
         catalogVersion = modelService.create(CatalogVersionModel.class);

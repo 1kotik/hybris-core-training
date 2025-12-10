@@ -3,6 +3,5 @@
     <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
     <extension dir="../custom/concerttours"/>
     <extension dir="../custom/bands"/>
-    <extension dir="../custom/users"/>
   </extensions>
 </hybrisconfig>
