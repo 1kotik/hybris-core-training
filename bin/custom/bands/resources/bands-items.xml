@@ -44,6 +44,7 @@
                 <attribute qualifier="name" type="java.lang.String">
                     <description>name of band</description>
                     <persistence type="property"/>
+                    <modifiers unique="true" optional="false" initial="true"/>
                 </attribute>
                 <attribute qualifier="history" type="java.lang.String">
                     <description>history of band</description>
@@ -108,6 +109,27 @@
                 </attribute>
                 <attribute qualifier="yearsOfExperience" type="java.lang.Integer">
                     <description>years of experience in music industry</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="News">
+            <deployment table="News" typecode="10107" />
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>unique news code</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="date" type="java.util.Date">
+                    <description>date of news item</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="headline" type="java.lang.String">
+                    <description>short headline for the news item</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="content" type="java.lang.String">
+                    <description>fuller description of the news item</description>
                     <persistence type="property"/>
                 </attribute>
             </attributes>

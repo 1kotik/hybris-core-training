@@ -24,3 +24,23 @@ INSERT_UPDATE MusicInstrument;code[unique=true]
 ;saxophone
 ;flute
 ;clarinet
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];SpringId
+;sendNewsJob;sendNewsJob
+
+INSERT_UPDATE ScriptingJob;code[unique=true];scriptURI
+;increaseAlbumSalesJob;model://increaseAlbumSales
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;sendNewsCronJob;sendNewsJob;false;en
+;increaseAlbumSalesCronJob;increaseAlbumSalesJob;false;en
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;sendNewsCronJob;0 0 9 ? * *
+;increaseAlbumSalesCronJob;0 */5 * ? * *
+
+INSERT_UPDATE MinConstraint;id[unique=true];severity(code,itemtype(code));active;annotation;descriptor(enclosingType(code),qualifier);message[lang=ru];message[lang=en];value
+;BandManagerExperienceMustNotBeNegativeConstraint;ERROR:Severity;true;javax.validation.constraints.Min;BandManager:yearsOfExperience;Опыт менеджера не должен быть отрицательным;Manager's experience must not be negative;0
+
+
+
