@@ -25,7 +25,7 @@ public class NewBandEventListener extends AbstractEventListener<AfterItemCreatio
 
     @Override
     protected void onEvent(final AfterItemCreationEvent event) {
-        if (event == null || event.getSource() == null) {
+        if (!isEventValid(event)) {
             return;
         }
         final Object source = modelService.get(event.getSource());
@@ -50,5 +50,11 @@ public class NewBandEventListener extends AbstractEventListener<AfterItemCreatio
         } catch (final NoSuchElementException e) {
             return prefix + "1";
         }
+    }
+
+    private boolean isEventValid(final AfterItemCreationEvent event) {
+        return event != null
+                && BandModel._TYPECODE.equals(event.getTypeCode())
+                && event.getSource() != null;
     }
 }

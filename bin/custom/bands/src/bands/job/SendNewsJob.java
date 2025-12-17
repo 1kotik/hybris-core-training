@@ -5,16 +5,15 @@ import bands.service.NewsService;
 import de.hybris.platform.cronjob.enums.CronJobResult;
 import de.hybris.platform.cronjob.enums.CronJobStatus;
 import de.hybris.platform.cronjob.model.CronJobModel;
-import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.util.mail.MailUtils;
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -26,17 +25,21 @@ import java.util.stream.IntStream;
 public class SendNewsJob extends AbstractJobPerformable<CronJobModel> {
     private static final Logger LOGGER = LoggerFactory.getLogger(SendNewsJob.class);
     private final NewsService newsService;
-    private final ConfigurationService configurationService;
+    @Value("${news_summary_mailing_address}")
+    private String recipient;
 
     @Autowired
-    public SendNewsJob(NewsService newsService, ConfigurationService configurationService) {
+    public SendNewsJob(NewsService newsService) {
         this.newsService = newsService;
-        this.configurationService = configurationService;
     }
 
     @Override
     public PerformResult perform(CronJobModel cronJobModel) {
         LOGGER.info("Sending daily news");
+        if (recipient == null || recipient.isEmpty()) {
+            LOGGER.warn("No recipient configured. Cannot send news");
+            return new PerformResult(CronJobResult.FAILURE, CronJobStatus.FINISHED);
+        }
         final List<NewsModel> news;
         try {
             news = newsService.findByTheDay(new Date());
@@ -57,7 +60,7 @@ public class SendNewsJob extends AbstractJobPerformable<CronJobModel> {
 
     private String buildMailContent(final List<NewsModel> news) {
         StringBuilder mailContent = new StringBuilder();
-        IntStream.range(1, news.size())
+        IntStream.rangeClosed(1, news.size())
                 .forEach(index -> mailContent.append(buildSingleNewsContent(news.get(index - 1), index)));
         return mailContent.toString();
     }
@@ -76,8 +79,6 @@ public class SendNewsJob extends AbstractJobPerformable<CronJobModel> {
     private void sendEmail(final String mailContent) throws EmailException {
         final String subject = "Daily News";
         final Email email = MailUtils.getPreConfiguredEmail();
-        final Configuration configuration = configurationService.getConfiguration();
-        final String recipient = configuration.getString("news_summary_mailing_address", null);
         email.addTo(recipient);
         email.setSubject(subject);
         email.setMsg(mailContent);

@@ -5,10 +5,11 @@ import bands.model.NewsModel;
 import de.hybris.platform.core.model.ItemModel;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,20 +29,32 @@ public class DefaultNewsDAO extends DefaultGenericItemModelDAO<NewsModel> implem
         if (date == null) {
             return Collections.emptyList();
         }
-        final String day = new SimpleDateFormat(dateFormat).format(date);
         final String dateColumn = NewsModel.DATE;
+        final String startOfDayColumn = "startOfDay";
+        final String startOfNextDayColumn = "startOfNextDay";
+        final Date startOfDay = getStartOfDay(date);
+        final Date startOfNextDay = getStartOfDay(DateUtils.addDays(date, 1));
         final FlexibleSearchQuery query = new FlexibleSearchQuery(
-                String.format("SELECT {%s} FROM {%s} WHERE TRUNC({%s}) = ?%s",
-                        ItemModel.PK, typecode, dateColumn, dateColumn));
-        query.addQueryParameter(dateColumn, day);
+                String.format("""
+                                SELECT {%s} FROM {%s}
+                                WHERE {%s} >= ?%s AND {%s} < ?%s""",
+                        ItemModel.PK, typecode, dateColumn, startOfDayColumn, dateColumn, startOfNextDayColumn));
+        query.addQueryParameter(dateColumn, date);
+        query.addQueryParameter(startOfDayColumn, startOfDay);
+        query.addQueryParameter(startOfNextDayColumn, startOfNextDay);
         return flexibleSearchService.<NewsModel>search(query).getResult();
+    }
+
+    private Date getStartOfDay(Date date) {
+        return DateUtils.truncate(date, Calendar.DATE);
     }
 
     @Override
     public Optional<NewsModel> findLatest() {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(
-                String.format("SELECT {%s} FROM {%s} ORDER BY {%s} DESC LIMIT 1",
+                String.format("SELECT {%s} FROM {%s} ORDER BY {%s} DESC",
                         ItemModel.PK, typecode, NewsModel.DATE));
+        query.setCount(1);
         return flexibleSearchService.<NewsModel>search(query).getResult().stream().findAny();
     }
 }
