@@ -7,6 +7,7 @@
 
 /config/*
 !/config/localextensions.xml
+!/config/local.properties
 
 /bin/modules/
 /bin/platform/
