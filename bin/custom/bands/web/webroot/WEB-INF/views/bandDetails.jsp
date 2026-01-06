@@ -17,7 +17,8 @@ Band Details for ${band.name}
     <ul>
         <c:forEach var="member" items="${band.members}">
             <li>${member.name}:
-                ${member.skillLevel} (<c:forEach var="instrument" items="${member.instrumentsExperience.entrySet()}" varStatus="status">
+                    ${member.skillLevel} (<c:forEach var="instrument" items="${member.instrumentsExperience.entrySet()}"
+                                                     varStatus="status">
                     ${instrument.key}: ${instrument.value} years${not status.last ? ', ' : ''}
                 </c:forEach>)
             </li>
@@ -25,7 +26,13 @@ Band Details for ${band.name}
     </ul>
 </c:if>
 <c:if test="${not empty band.manager.id}">
-    <p>Manager: ${band.manager.name}</p>
+    <h3>Manager: ${band.manager.name}</h3>
+</c:if>
+<c:if test="${not empty band.producer.id}">
+    <h3>Producer:
+        <a href="producers/${band.producer.id}">${band.producer.firstName} ${band.producer.lastName}</a>
+    </h3>
+    <p>Contact info: email - ${band.producer.email}, phone - ${band.producer.phone}</p>
 </c:if>
 <c:if test="${not empty band.tours}">
     <p>Tour History:</p>
