@@ -7,11 +7,14 @@ INSERT_UPDATE Musician;code[unique=true];name;instrumentsExperience(key(code), v
 INSERT_UPDATE BandManager;code[unique=true];name;email;phone;yearsOfExperience
 ;BM001;Robert West;robertwest@gmail.com;111111111111;10
 
-INSERT_UPDATE Band;code[unique=true];name;albumSales;history;types(code);members(code);manager(code)
-;A001;yRock;1000000;Occasional tribute rock band comprising senior managers from a leading commerce software vendor;rock, eighties;M001, M002, M003, M004;BM001
-;A002;Sirken;2000;A cappella singing group based in Munich;choral, pop;;
-;A003;yJazz;7;Experimental Jazz group from London playing many musical notes together in unexpected combinations and sequences;jazz, femaleVocals;;
-;A004;Banned;427;Rejuvenated Polish boy band from the 1990s - this genre of pop music at its most dubious best;nineties, maleVocals, pop;;
-;A005;The Choir;49000;Enthusiastic, noisy gospel choir singing traditional gospel songs from the deep south;gospel;;
-;A006;yBand;;Dutch tribute rock band formed in 2013 playing classic rock tunes from the sixties, seventies and eighties;rock,sixties,seventies,eighties,maleVocals;;
-;A007;The Quiet;1200;English choral society specialising in beautifully arranged, soothing melodies and songs;choral,classical;;
+INSERT_UPDATE BandProducer;code[unique=true];firstName;lastName;email;phone;description
+;BP001;John;Doe;johndoe@gmail.com;222222222222;The man who loves music
+
+INSERT_UPDATE Band;code[unique=true];name;albumSales;history;types(code);members(code);manager(code);producer(code)
+;A001;yRock;1000000;Occasional tribute rock band comprising senior managers from a leading commerce software vendor;rock, eighties;M001, M002, M003, M004;BM001;BP001
+;A002;Sirken;2000;A cappella singing group based in Munich;choral, pop;;;BP001
+;A003;yJazz;7;Experimental Jazz group from London playing many musical notes together in unexpected combinations and sequences;jazz, femaleVocals;;;
+;A004;Banned;427;Rejuvenated Polish boy band from the 1990s - this genre of pop music at its most dubious best;nineties, maleVocals, pop;;;
+;A005;The Choir;49000;Enthusiastic, noisy gospel choir singing traditional gospel songs from the deep south;gospel;;;
+;A006;yBand;;Dutch tribute rock band formed in 2013 playing classic rock tunes from the sixties, seventies and eighties;rock,sixties,seventies,eighties,maleVocals;;;
+;A007;The Quiet;1200;English choral society specialising in beautifully arranged, soothing melodies and songs;choral,classical;;;
