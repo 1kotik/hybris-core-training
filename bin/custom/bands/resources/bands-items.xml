@@ -114,23 +114,39 @@
             </attributes>
         </itemtype>
         <itemtype code="News">
-            <deployment table="News" typecode="10107" />
+            <deployment table="News" typecode="10107"/>
+            <custom-properties>
+                <property name="catalogItemType">
+                    <value>Boolean.TRUE</value>
+                </property>
+                <property name="catalogVersionAttributeQualifier">
+                    <value>"catalogVersion"</value>
+                </property>
+                <property name="uniqueKeyAttributeQualifier">
+                    <value>"code"</value>
+                </property>
+            </custom-properties>
             <attributes>
                 <attribute qualifier="code" type="java.lang.String">
                     <description>unique news code</description>
                     <persistence type="property"/>
+                    <modifiers unique="true" initial="true" optional="false"/>
                 </attribute>
                 <attribute qualifier="date" type="java.util.Date">
                     <description>date of news item</description>
-                    <persistence type="property" />
+                    <persistence type="property"/>
                 </attribute>
                 <attribute qualifier="headline" type="java.lang.String">
                     <description>short headline for the news item</description>
-                    <persistence type="property" />
+                    <persistence type="property"/>
                 </attribute>
                 <attribute qualifier="content" type="java.lang.String">
                     <description>fuller description of the news item</description>
                     <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="catalogVersion" type="CatalogVersion">
+                    <persistence type="property"/>
+                    <modifiers read="true" write="true" search="true" optional="false" initial="true"/>
                 </attribute>
             </attributes>
         </itemtype>
