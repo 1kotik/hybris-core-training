@@ -42,5 +42,6 @@ INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
 INSERT_UPDATE MinConstraint;id[unique=true];severity(code,itemtype(code));active;annotation;descriptor(enclosingType(code),qualifier);message[lang=ru];message[lang=en];value
 ;BandManagerExperienceMustNotBeNegativeConstraint;ERROR:Severity;true;javax.validation.constraints.Min;BandManager:yearsOfExperience;Опыт менеджера не должен быть отрицательным;Manager's experience must not be negative;0
 
-
+INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+;ReturnOnlineCatalogVersionNews;ReturnOnlineCatalogVersionNews;{catalogversion}=8796093055577;customergroup;News;true;true
 

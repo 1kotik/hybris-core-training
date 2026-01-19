@@ -27,4 +27,17 @@
         <property name="interceptor" ref="bandAlbumSalesInterceptor"/>
         <property name="typeCode" value="Band"/>
     </bean>
+
+    <bean id="newsCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+        <property name="key" value="code"/>
+        <property name="template" value="N$"/>
+        <property name="digits" value="3"/>
+        <property name="start" value="1"/>
+    </bean>
+
+    <bean id="newsPrepareInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="newsPrepareInterceptor"/>
+        <property name="typeCode" value="News"/>
+    </bean>
 </beans>
