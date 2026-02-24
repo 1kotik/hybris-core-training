@@ -3,6 +3,7 @@ package bands.config;
 import bands.dao.GenericItemModelDAO;
 import bands.dao.impl.DefaultGenericItemModelDAO;
 import bands.model.BandModel;
+import bands.model.BandProducerModel;
 import bands.service.GenericItemModelService;
 import bands.service.impl.DefaultGenericItemModelService;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
@@ -27,5 +28,15 @@ public class BandsServiceLayerBeanConfiguration {
     @Bean
     public GenericItemModelService<BandModel> bandService() {
         return new DefaultGenericItemModelService<>(bandDAO(), "Band");
+    }
+
+    @Bean
+    public GenericItemModelDAO<BandProducerModel> bandProducerDAO() {
+        return new DefaultGenericItemModelDAO<>(BandProducerModel.CODE, BandProducerModel._TYPECODE, flexibleSearchService);
+    }
+
+    @Bean
+    public GenericItemModelService<BandProducerModel> bandProducerService() {
+        return new DefaultGenericItemModelService<>(bandProducerDAO(), "Band Producer");
     }
 }

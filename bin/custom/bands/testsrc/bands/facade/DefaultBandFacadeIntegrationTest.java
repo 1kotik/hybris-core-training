@@ -2,11 +2,13 @@ package bands.facade;
 
 import bands.data.BandData;
 import bands.data.BandManagerData;
+import bands.data.BandProducerData;
 import bands.data.MusicianData;
 import bands.data.TourSummaryData;
 import bands.facade.impl.DefaultBandFacade;
 import bands.model.BandManagerModel;
 import bands.model.BandModel;
+import bands.model.BandProducerModel;
 import bands.model.MusicianModel;
 import bands.service.GenericItemModelService;
 import concerttours.model.ConcertModel;
@@ -47,6 +49,8 @@ public class DefaultBandFacadeIntegrationTest extends ServicelayerTransactionalT
     @Resource
     private Converter<MusicianModel, MusicianData> musicianConverter;
     @Resource
+    private Converter<BandProducerModel, BandProducerData> bandProducerConverter;
+    @Resource
     private Converter<ProductModel, TourSummaryData> tourSummaryConverter;
     private BandFacade bandFacade;
     private CatalogVersionModel catalogVersion;
@@ -54,7 +58,7 @@ public class DefaultBandFacadeIntegrationTest extends ServicelayerTransactionalT
     @Before
     public void setup() {
         bandFacade = new DefaultBandFacade(bandService, basicBandConverter, bandManagerConverter,
-                musicianConverter, tourSummaryConverter);
+                musicianConverter, tourSummaryConverter, bandProducerConverter);
         CatalogModel catalog = modelService.create(CatalogModel.class);
         catalog.setId("catalog");
         catalogVersion = modelService.create(CatalogVersionModel.class);

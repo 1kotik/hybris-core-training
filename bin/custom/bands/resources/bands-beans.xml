@@ -27,6 +27,14 @@
 		<property name="phone" type="String"/>
 		<property name="yearsOfExperience" type="Integer"/>
 	</bean>
+	<bean class="bands.data.BandProducerData">
+		<description>Data object representing a brief info of Band Producer</description>
+		<property name="id" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="phone" type="String"/>
+	</bean>
 	<bean class = "bands.data.BandData" >
 		<description>Data object representing a Band</description>
 		<property name = "id" type = "String" />
@@ -37,6 +45,12 @@
 		<property name = "tours" type="java.util.List&lt;bands.data.TourSummaryData&gt;"/>
 		<property name="members" type="java.util.List&lt;bands.data.MusicianData&gt;"/>
 		<property name="manager" type="bands.data.BandManagerData"/>
+		<property name="producer" type="bands.data.BandProducerData"/>
+	</bean>
+	<bean class="bands.data.BandProducerExtendedData" extends="BandProducerData">
+		<description>Data object representing extended info of Band Producer</description>
+		<property name="description" type="String"/>
+		<property name="bands" type="java.util.List&lt;bands.data.BandData&gt;"/>
 	</bean>
 	<bean class = "bands.data.ConcertSummaryData">
 		<description >Data object for a concert summary</description>
